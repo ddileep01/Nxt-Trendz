@@ -1,3 +1,22 @@
+.all-products-section {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  .all-products-section {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .all-products-container {
+    margin-left: 30px;
+    width: 70%;
+  }
+}
+
 .products-heading {
   color: #475569;
   font-family: 'Roboto';
@@ -15,7 +34,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 60vh;
+  height: 100vh;
+}
+
+@media screen and (min-width: 768px) {
+  .products-loader-container {
+    width: 70%;
+  }
 }
 
 .products-list {
