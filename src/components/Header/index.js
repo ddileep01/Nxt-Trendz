@@ -1,6 +1,7 @@
 import {Link, withRouter} from 'react-router-dom'
-
 import Cookies from 'js-cookie'
+
+import CartContext from '../../context/CartContext'
 
 import './index.css'
 
@@ -12,15 +13,34 @@ const Header = props => {
     history.replace('/login')
   }
 
+  const renderCartItemsCount = () => (
+    <CartContext.Consumer>
+      {value => {
+        const {cartList} = value
+        const cartItemsCount = cartList.length
+
+        return (
+          <>
+            {cartItemsCount > 0 ? (
+              <span className="cart-count-badge">{cartList.length}</span>
+            ) : null}
+          </>
+        )
+      }}
+    </CartContext.Consumer>
+  )
+
   return (
     <nav className="nav-header">
       <div className="nav-content">
         <div className="nav-bar-mobile-logo-container">
-          <img
-            className="website-logo"
-            src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
-            alt="website logo"
-          />
+          <Link to="/">
+            <img
+              className="website-logo"
+              src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
+              alt="website logo"
+            />
+          </Link>
 
           <button
             type="button"
@@ -35,12 +55,14 @@ const Header = props => {
           </button>
         </div>
 
-        <div className="nav-content nav-bar-large-container">
-          <img
-            className="website-logo"
-            src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
-            alt="website logo"
-          />
+        <div className="nav-bar-large-container">
+          <Link to="/">
+            <img
+              className="website-logo"
+              src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-logo-img.png"
+              alt="website logo"
+            />
+          </Link>
           <ul className="nav-menu">
             <li className="nav-menu-item">
               <Link to="/" className="nav-link">
@@ -57,6 +79,7 @@ const Header = props => {
             <li className="nav-menu-item">
               <Link to="/cart" className="nav-link">
                 Cart
+                {renderCartItemsCount()}
               </Link>
             </li>
           </ul>
@@ -97,6 +120,7 @@ const Header = props => {
                 alt="nav cart"
                 className="nav-bar-img"
               />
+              {renderCartItemsCount()}
             </Link>
           </li>
         </ul>
